@@ -61,7 +61,7 @@
       fancybox: true,
       pjax: false,
       loading: {
-        gif: '/images/theme/loading.gif',
+        gif: '/images/theme/Lottie Lego.gif',
         lottie: ''
       },
       lazyload: {
@@ -200,7 +200,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>六月 04, 2024</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1461</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1441</span>
     </div>
   </div>
 </section>
@@ -212,10 +212,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./install.sh<br></code></pre></td></tr></table></figure>
 <p>时，会出现报错：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">Could not <span class="hljs-keyword">build </span>wheels for Pillow, <span class="hljs-keyword">scikit-image, </span><span class="hljs-keyword">scipy</span><br></code></pre></td></tr></table></figure>
-<p>为什么会出现这种报错呢？<br>我们打开<code>requirements.txt</code>，可以看到：<br><img    class="lazyload" data-original="/img/20240604140524.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">image</span></p>
-<p>上面列出了所有需安装程序及其版本，而报错就是<code>install.sh</code>脚本在执行<code>pip install -r requirements.txt</code>指令时发生的。<br>而且该报错已经说明了，是在<strong>build wheels</strong> for <strong>Pillow, scikit-image, scipy</strong>时出现的错误<br>我们通过网站<a target="_blank" rel="noopener" href="https://pypi.org/">https://pypi.org</a> 搜索：<br><img    class="lazyload" data-original="/img/20240604141137.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">image</span></p>
-<p>根据<code>requirement.txt</code>，查看[scikit-image0.12.3版本](<a target="_blank" rel="noopener" href="https://pypi.org/project/scikit-image/0.12.3/#files">scikit-image · PyPI</a>)：<br><img    class="lazyload" data-original="/img/20240604141505.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">image</span></p>
-<p>因为问题出在Building wheels上，所以我们直接查看Built Distributions里的.whl文件：<br><img    class="lazyload" data-original="/img/20240604141913.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">image</span><br>可以看到，所有的.whl文件的命名方式都是scikit_image-0.12.3-x-<strong>cpXX-cpXXm</strong>*.whl的形式。<br>在build wheels过程中出现了问题，也就是说对这个.whl文件处理的过程中出现了问题。<br>首先执行命令：</p>
+<p>为什么会出现这种报错呢？<br>我们打开<code>requirements.txt</code>，可以看到：<br><img   class="lazyload" data-original="/img/20240604140524.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>上面列出了所有需安装程序及其版本，而报错就是<code>install.sh</code>脚本在执行<code>pip install -r requirements.txt</code>指令时发生的。<br>而且该报错已经说明了，是在<strong>build wheels</strong> for <strong>Pillow, scikit-image, scipy</strong>时出现的错误<br>我们通过网站<a target="_blank" rel="noopener" href="https://pypi.org/">https://pypi.org</a> 搜索：<br><img   class="lazyload" data-original="/img/20240604141137.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>根据<code>requirement.txt</code>，查看[scikit-image0.12.3版本](<a target="_blank" rel="noopener" href="https://pypi.org/project/scikit-image/0.12.3/#files">scikit-image · PyPI</a>)：<br><img   class="lazyload" data-original="/img/20240604141505.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>因为问题出在Building wheels上，所以我们直接查看Built Distributions里的.whl文件：<br><img   class="lazyload" data-original="/img/20240604141913.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><br>可以看到，所有的.whl文件的命名方式都是scikit_image-0.12.3-x-<strong>cpXX-cpXXm</strong>*.whl的形式。<br>在build wheels过程中出现了问题，也就是说对这个.whl文件处理的过程中出现了问题。<br>首先执行命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip debug --verbose<br></code></pre></td></tr></table></figure>
 <p>可以查看你的平台支持的版本。<br>详见：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/t18438605018/article/details/121769227">whl is not a supported wheel on this platform.解决办法-CSDN博客</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41368074/article/details/116192766">安装scipy报错，疑似缺少wheel包，解决方案_failed to build scipy error: could not build wheel-CSDN博客</a></p>
