@@ -122,7 +122,7 @@
       },
       search: {
         enable: false,
-        path: ''
+        path: '/search.xml'
       }
     }
   </script>
@@ -204,8 +204,8 @@
         
           
           <div class="archive-item">
-            <a class="archive-date" href="/2024/06/04/%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C(%E4%BA%94)%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/">六月 04</a>
-            <a class="archive-title" href="/2024/06/04/%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C(%E4%BA%94)%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/">数字内容安全实验(五)问题的解决</a>
+            <a class="archive-date" href="/2024/06/04/%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E4%BA%94-%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/">六月 04</a>
+            <a class="archive-title" href="/2024/06/04/%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E4%BA%94-%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/">数字内容安全实验五-环境配置问题的解决</a>
           </div>
         
           
@@ -321,6 +321,82 @@
 <script src="/js/script.js"></script>
 
 
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'Xd7jsFZhoC5s14sAaHkLtpLf-gzGzoHsz',
+      appKey: 'lkGvL3YyZuFlBNrO6PLbqCFi',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'https://fisherder.github.io';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'https://fisherder.github.io';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
 
 
 
