@@ -179,7 +179,7 @@ hexo clean &amp;&amp; hexo d
   </entry>
   <entry>
     <title>数字内容安全实验（五）环境配置问题的解决</title>
-    <url>/2024/06/04/%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E4%BA%94-%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/</url>
+    <url>/2024/06/04/%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C(%E4%BA%94)%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
 <p>过时的python版本、过时的程序、过时的下载链接——这就是数字内容安全实验五。</p>
 </blockquote>
