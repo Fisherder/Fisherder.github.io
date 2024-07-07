@@ -146,8 +146,8 @@ comments: false
 <li>页面标题和文章一样可以随意修改；</li>
 <li>页面不会出现在首页文章列表和归档中，也不支持设置分类和标签。</li>
 </ul>
-<h3 id="常用组合"><a href="#常用组合" class="headerlink" title="常用组合"></a>常用组合</h3><pre><code class="hljs">hexo clean &amp;&amp; hexo s
-hexo clean &amp;&amp; hexo d
+<h3 id="常用组合"><a href="#常用组合" class="headerlink" title="常用组合"></a>常用组合</h3><pre><code class="hljs">hexo g &amp;&amp; hexo s
+hexo g &amp;&amp; hexo d
 </code></pre>
 <ul>
 <li>可以为这两条命令设置一下快捷键</li>
