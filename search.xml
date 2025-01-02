@@ -3,22 +3,32 @@
   <entry>
     <title>报错Could not build wheels for Pillow, scikit-image, scipy的由来</title>
     <url>/2024/06/04/Wheels%E6%8A%A5%E9%94%99%E7%9A%84%E7%94%B1%E6%9D%A5/</url>
-    <content><![CDATA[<h1 id="报错“Could-not-build-wheels-for-Pillow-scikit-image-scipy”的由来"><a href="#报错“Could-not-build-wheels-for-Pillow-scikit-image-scipy”的由来" class="headerlink" title="报错“Could not build wheels for Pillow, scikit-image, scipy”的由来"></a>报错“Could not build wheels for Pillow, scikit-image, scipy”的由来</h1><p>这篇文章是对<a href="../%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C(%E4%BA%94)%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/index.html">数字内容安全实验（五）问题的解决</a>教程的进一步解释</p>
+    <content><![CDATA[<h1 id="报错“Could-not-build-wheels-for-Pillow-scikit-image-scipy”的由来"><a href="#报错“Could-not-build-wheels-for-Pillow-scikit-image-scipy”的由来" class="headerlink" title="报错“Could not build wheels for Pillow, scikit-image, scipy”的由来"></a>报错“Could not build wheels for Pillow, scikit-image, scipy”的由来</h1><blockquote>
+<p>省流：最终的解决方案：使用anaconda创建一个独立的Python3.7环境，在里面安装所需依赖以及运行程序。</p>
+</blockquote>
+<p>这篇文章是对<a href="../%E6%95%B0%E5%AD%97%E5%86%85%E5%AE%B9%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C(%E4%BA%94)%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/index.html">数字内容安全实验（五）问题的解决</a>教程的进一步解释。<br>当然，也可以作为这类报错的通用解释。</p>
 <p>有些人在执行指令：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ./install.sh<br></code></pre></td></tr></table></figure>
 <p>时，会出现报错：</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">Could not <span class="hljs-keyword">build </span>wheels for Pillow, <span class="hljs-keyword">scikit-image, </span><span class="hljs-keyword">scipy</span><br></code></pre></td></tr></table></figure>
-<p>为什么会出现这种报错呢？<br>我们打开<code>requirements.txt</code>，可以看到：<br><img src="/img/20240604140524.png"></p>
-<p>上面列出了所有需安装程序及其版本，而报错就是<code>install.sh</code>脚本在执行<code>pip install -r requirements.txt</code>指令时发生的。<br>而且该报错已经说明了，是在<strong>build wheels</strong> for <strong>Pillow, scikit-image, scipy</strong>时出现的错误<br>我们通过网站<a href="https://pypi.org/">https://pypi.org</a> 搜索：<br><img src="/img/20240604141137.png"></p>
-<p>根据<code>requirement.txt</code>，查看[scikit-image0.12.3版本](<a href="https://pypi.org/project/scikit-image/0.12.3/#files">scikit-image · PyPI</a>)：<br><img src="/img/20240604141505.png"></p>
-<p>因为问题出在Building wheels上，所以我们直接查看Built Distributions里的.whl文件：<br><img src="/img/20240604141913.png"><br>可以看到，所有的.whl文件的命名方式都是scikit_image-0.12.3-x-<strong>cpXX-cpXXm</strong>*.whl的形式。<br>在build wheels过程中出现了问题，也就是说对这个.whl文件处理的过程中出现了问题。<br>首先执行命令：</p>
+
+<p>为什么会出现这种报错呢？<br>我们打开<code>requirements.txt</code>，可以看到：</p>
+<p><img src="/img/20240604140524.png"></p>
+<p>上面列出了所有需安装程序及其版本，而报错就是<code>install.sh</code>脚本在执行<code>pip install -r requirements.txt</code>指令时发生的。<br>而且该报错已经说明了，是在<strong>build wheels</strong> for <strong>Pillow, scikit-image, scipy</strong>时出现的错误<br>我们通过网站<a href="https://pypi.org/">https://pypi.org</a> 搜索：</p>
+<p><img src="/img/20240604141137.png"></p>
+<p>根据<code>requirement.txt</code>，查看[scikit-image0.12.3版本](<a href="https://pypi.org/project/scikit-image/0.12.3/#files">scikit-image · PyPI</a>)：</p>
+<p><img src="/img/20240604141505.png"></p>
+<p>因为问题出在Building wheels上，所以我们直接查看Built Distributions里的.whl文件：</p>
+<p><img src="/img/20240604141913.png"></p>
+<p>可以看到，所有的.whl文件的命名方式都是scikit_image-0.12.3-x-<strong>cpXX-cpXXm</strong>*.whl的形式。<br>在build wheels过程中出现了问题，也就是说对这个.whl文件处理的过程中出现了问题。<br>首先执行命令：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">pip debug --verbose<br></code></pre></td></tr></table></figure>
+
 <p>可以查看你的平台支持的版本。<br>详见：<br><a href="https://blog.csdn.net/t18438605018/article/details/121769227">whl is not a supported wheel on this platform.解决办法-CSDN博客</a></p>
 <p><a href="https://blog.csdn.net/qq_41368074/article/details/116192766">安装scipy报错，疑似缺少wheel包，解决方案_failed to build scipy error: could not build wheel-CSDN博客</a></p>
 <p>如果只按照上面网站的教程，下载对应的whl包重命名之后进行build，在后续的<code>python network.py</code>过程中仍会报错：</p>
 <figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada">ImportError: cannot import name <span class="hljs-symbol">&#x27;geometry</span>&#x27; from <span class="hljs-symbol">&#x27;skimage._shared</span><br><br>It seems that scikit-image has <span class="hljs-keyword">not</span> been built correctly.<br><br>Your install <span class="hljs-keyword">of</span> scikit-image appears to be broken.<br>Try re-installing the <span class="hljs-keyword">package</span> <span class="hljs-title">following the instructions at:</span><br>http://scikit-image.org/docs/stable/install.html <br><br></code></pre></td></tr></table></figure>
 <p>这是个更加令人费解的错误，但是从中我们也能知道，“<strong>Your install of scikit-image appears to be broken.<strong>”<br>可能这就是按照上面的教程</strong>手动下载whl包改名后build</strong>的下场，极大概率就是由于：你用的平台的<strong>python版本过高</strong>，并不能正常完成build wheels的过程。</p>
-<p>所以说根本的解决办法，还是<strong>创建一个兼容的python版本的环境</strong>。查看5年前的python版本以及进行后续试验后，我发现选用python3.6是最好（或许是唯一）的选择。而创建环境就需要使用到conda。</p>
+<p>所以说根本的解决办法，还是<strong>创建一个兼容的python版本的环境</strong>。查看5年前的python版本以及进行后续试验后，我发现选用python3.6是最好（或许是唯一）的选择。而创建环境就需要使用到anaconda。</p>
 ]]></content>
       <tags>
         <tag>数字内容安全</tag>
